@@ -74,12 +74,6 @@ function App() {
             that make information easier to manage.
           </p>
 
-          <div className="hero-actions">
-            <a href="#projects">View Projects</a>
-            <a href="#contact" className="secondary-link">
-              Contact Me
-            </a>
-          </div>
         </div>
 
         <div className="hero-visual" aria-hidden="true">
