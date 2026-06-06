@@ -172,11 +172,9 @@ function App() {
 
         <a
           className="resume-button"
-          href="/Efrem-Wilkerson-Resume.pdf"
-          target="_blank"
-          rel="noreferrer"
+          href="#contact"
         >
-          Open Resume
+          Resume available upon request
         </a>
       </section>
 
@@ -188,7 +186,7 @@ function App() {
         <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
           LinkedIn
         </a>
-        <a href="/Efrem-Wilkerson-Resume.pdf" target="_blank" rel="noreferrer">
+        <a href="#resume">
           Resume
         </a>
       </footer>
