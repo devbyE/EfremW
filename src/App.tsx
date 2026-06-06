@@ -215,8 +215,8 @@ function App() {
               <path d="M4 7l8 6 8-6" />
             </svg>
             <span>Email</span>
-            <a href="mailto:efremlwilkerson@gmail.com">
-              efremlwilkerson@gmail.com
+            <a href="mailto:efremwilkerson@gmail.com">
+              efremwilkerson@gmail.com
             </a>
           </article>
 
