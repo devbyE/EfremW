@@ -16,9 +16,27 @@ const projects = [
   {
     title: '404 Arcade Game',
     description:
-      'A playful 404 page that turns a missing route into a small browser game with scoring and keyboard controls.',
+      'A playful 404 page that turns a missing route into a small browser game with scoring, keyboard controls, and a live deploy.',
     tech: ['React', 'TypeScript', 'Game Logic'],
-    status: 'Planned',
+    status: 'Live',
+    image: '/projects/404-arcade-game.png',
+    imageAlt: '404 Arcade Game gameplay screenshot',
+    links: [
+      {
+        label: 'Live Demo',
+        href: 'https://404-arcade-game.vercel.app',
+        icon: 'external',
+        ariaLabel: 'Open 404 Arcade Game live demo',
+        tooltip: 'Live Demo',
+      },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/devbyE/404-arcade-game',
+        icon: 'github',
+        ariaLabel: 'View 404 Arcade Game GitHub repository',
+        tooltip: 'GitHub Repo',
+      },
+    ],
   },
   {
     title: 'Personality Theme Quiz',
@@ -168,24 +186,67 @@ function App() {
 
         <div className="section-heading-row">
           <h2>Selected work</h2>
-          <p>Three planned interactive builds are queued up for this space.</p>
+          <p>Interactive builds with practical front-end structure and polished details.</p>
         </div>
 
         <div className="project-grid">
           {projects.map((project) => (
             <article className="project-card" key={project.title}>
-              <div className="project-card-top">
-                <span className="project-status">{project.status}</span>
+              <div className="project-preview">
+                {project.image && project.imageAlt ? (
+                  <img src={project.image} alt={project.imageAlt} />
+                ) : (
+                  <div className="project-placeholder" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                )}
               </div>
 
-              <h3>{project.title}</h3>
+              <div className="project-content">
+                <div className="project-card-top">
+                  <span className="project-status">{project.status}</span>
+                </div>
 
-              <p>{project.description}</p>
+                <h3>{project.title}</h3>
 
-              <div className="project-tech">
-                {project.tech.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
+                <p>{project.description}</p>
+
+                <div className="project-tech">
+                  {project.tech.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+
+                {project.links && (
+                  <div className="project-links">
+                    {project.links.map((link) => (
+                      <a
+                        href={link.href}
+                        key={link.href}
+                        target="_blank"
+                        aria-label={link.ariaLabel}
+                        rel="noreferrer"
+                      >
+                        {link.icon === 'external' ? (
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M14 5h5v5" />
+                            <path d="M10 14L19 5" />
+                            <path d="M19 14v5H5V5h5" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3.5a8.6 8.6 0 0 0-2.7 16.8c.4.1.6-.2.6-.4v-1.5c-2.3.5-2.8-1-2.8-1-.4-.9-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.8.1 1.3.9 1.3.9.8 1.3 2 1 2.4.8.1-.6.3-1 .5-1.2-1.8-.2-3.8-.9-3.8-4.1 0-.9.3-1.7.9-2.3-.1-.2-.4-1.1.1-2.3 0 0 .7-.2 2.4.9.7-.2 1.4-.3 2.1-.3.7 0 1.4.1 2.1.3 1.6-1.1 2.4-.9 2.4-.9.5 1.2.2 2.1.1 2.3.5.6.9 1.4.9 2.3 0 3.2-1.9 3.9-3.8 4.1.3.3.6.8.6 1.6v2.4c0 .2.1.5.6.4A8.6 8.6 0 0 0 12 3.5z" />
+                          </svg>
+                        )}
+                        <span className="project-link-tooltip" aria-hidden="true">
+                          {link.tooltip}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             </article>
           ))}
