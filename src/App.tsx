@@ -1,4 +1,32 @@
+import { useState } from 'react'
 import './App.css'
+import ThemeQuiz from './components/ThemeQuiz'
+import {
+  type ThemeName,
+  themeDescriptions,
+  themeLabels,
+} from './data/themeQuiz'
+
+const THEME_STORAGE_KEY = 'portfolio-theme'
+
+type ProjectLink = {
+  label: string
+  icon: 'external' | 'github'
+  ariaLabel: string
+  tooltip: string
+  href?: string
+  action?: 'themeQuiz'
+}
+
+type Project = {
+  title: string
+  description: string
+  tech: string[]
+  status: string
+  image?: string
+  imageAlt?: string
+  links?: ProjectLink[]
+}
 
 const technologies = [
   'React',
@@ -12,7 +40,7 @@ const technologies = [
   'Vite',
 ]
 
-const projects = [
+const projects: Project[] = [
   {
     title: '404 Arcade Game',
     description:
@@ -43,7 +71,16 @@ const projects = [
     description:
       'An interactive quiz that changes the site’s visual theme based on a visitor’s answers.',
     tech: ['React', 'State Management', 'CSS'],
-    status: 'Planned',
+    status: 'Interactive',
+    links: [
+      {
+        label: 'Live Demo',
+        icon: 'external',
+        ariaLabel: 'Open Personality Theme Quiz',
+        tooltip: 'Open Personality Theme Quiz',
+        action: 'themeQuiz',
+      },
+    ],
   },
   {
     title: 'Cursor Trail Art',
@@ -53,6 +90,11 @@ const projects = [
     status: 'Planned',
   },
 ]
+
+const themeNames: ThemeName[] = ['ocean', 'arcade', 'minimal', 'cyber']
+
+const isThemeName = (value: string | null): value is ThemeName =>
+  themeNames.includes(value as ThemeName)
 
 const experience = [
   {
@@ -68,8 +110,30 @@ const experience = [
 ]
 
 function App() {
+  const [activeTheme, setActiveTheme] = useState<ThemeName | null>(() => {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+    return isThemeName(savedTheme) ? savedTheme : null
+  })
+  const [isQuizOpen, setIsQuizOpen] = useState(false)
+  const [quizInstance, setQuizInstance] = useState(0)
+
+  const applyTheme = (theme: ThemeName) => {
+    setActiveTheme(theme)
+    localStorage.setItem(THEME_STORAGE_KEY, theme)
+  }
+
+  const openThemeQuiz = () => {
+    setQuizInstance((currentInstance) => currentInstance + 1)
+    setIsQuizOpen(true)
+  }
+
+  const resetTheme = () => {
+    setActiveTheme(null)
+    localStorage.removeItem(THEME_STORAGE_KEY)
+  }
+
   return (
-    <main className="page">
+    <main className="page" data-theme={activeTheme ?? undefined}>
       <nav className="navbar">
         <a href="#top" className="logo">
           Efrem Wilkerson
@@ -221,15 +285,9 @@ function App() {
 
                 {project.links && (
                   <div className="project-links">
-                    {project.links.map((link) => (
-                      <a
-                        href={link.href}
-                        key={link.href}
-                        target="_blank"
-                        aria-label={link.ariaLabel}
-                        rel="noreferrer"
-                      >
-                        {link.icon === 'external' ? (
+                    {project.links.map((link) => {
+                      const icon =
+                        link.icon === 'external' ? (
                           <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M14 5h5v5" />
                             <path d="M10 14L19 5" />
@@ -239,12 +297,58 @@ function App() {
                           <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M12 3.5a8.6 8.6 0 0 0-2.7 16.8c.4.1.6-.2.6-.4v-1.5c-2.3.5-2.8-1-2.8-1-.4-.9-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.8.1 1.3.9 1.3.9.8 1.3 2 1 2.4.8.1-.6.3-1 .5-1.2-1.8-.2-3.8-.9-3.8-4.1 0-.9.3-1.7.9-2.3-.1-.2-.4-1.1.1-2.3 0 0 .7-.2 2.4.9.7-.2 1.4-.3 2.1-.3.7 0 1.4.1 2.1.3 1.6-1.1 2.4-.9 2.4-.9.5 1.2.2 2.1.1 2.3.5.6.9 1.4.9 2.3 0 3.2-1.9 3.9-3.8 4.1.3.3.6.8.6 1.6v2.4c0 .2.1.5.6.4A8.6 8.6 0 0 0 12 3.5z" />
                           </svg>
-                        )}
+                        )
+
+                      const tooltip = (
                         <span className="project-link-tooltip" aria-hidden="true">
                           {link.tooltip}
                         </span>
-                      </a>
-                    ))}
+                      )
+
+                      if (link.action === 'themeQuiz') {
+                        return (
+                          <button
+                            aria-label={link.ariaLabel}
+                            key={link.ariaLabel}
+                            onClick={openThemeQuiz}
+                            title={link.tooltip}
+                            type="button"
+                          >
+                            {icon}
+                            {tooltip}
+                          </button>
+                        )
+                      }
+
+                      if (!link.href) {
+                        return null
+                      }
+
+                      return (
+                        <a
+                          href={link.href}
+                          key={link.href}
+                          target="_blank"
+                          aria-label={link.ariaLabel}
+                          rel="noreferrer"
+                          title={link.tooltip}
+                        >
+                          {icon}
+                          {tooltip}
+                        </a>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {project.title === 'Personality Theme Quiz' && activeTheme && (
+                  <div className="theme-result-note">
+                    <span title={themeDescriptions[activeTheme]}>
+                      Applied: {themeLabels[activeTheme]}
+                    </span>
+                    <button onClick={resetTheme} type="button">
+                      Reset theme
+                    </button>
                   </div>
                 )}
               </div>
@@ -322,6 +426,13 @@ function App() {
           &copy; 2026 Efrem Wilkerson. All rights reserved.
         </p>
       </footer>
+
+      <ThemeQuiz
+        isOpen={isQuizOpen}
+        key={quizInstance}
+        onApplyTheme={applyTheme}
+        onClose={() => setIsQuizOpen(false)}
+      />
     </main>
   )
 }
