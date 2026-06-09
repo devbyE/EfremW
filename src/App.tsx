@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import './App.css'
+import CursorTrail, { type TrailColorMode } from './components/CursorTrail'
+import CursorTrailPreview from './components/CursorTrailPreview'
 import ThemeQuiz from './components/ThemeQuiz'
 import {
   type ThemeName,
@@ -87,11 +89,15 @@ const projects: Project[] = [
     description:
       'A subtle interactive visual effect where the cursor creates a glowing particle trail across the page.',
     tech: ['JavaScript', 'Canvas', 'Animation'],
-    status: 'Planned',
+    status: 'Interactive',
   },
 ]
 
 const themeNames: ThemeName[] = ['ocean', 'arcade', 'minimal', 'cyber']
+const trailColorLabels: Record<TrailColorMode, string> = {
+  blue: 'Blue',
+  white: 'White',
+}
 
 const isThemeName = (value: string | null): value is ThemeName =>
   themeNames.includes(value as ThemeName)
@@ -116,6 +122,9 @@ function App() {
   })
   const [isQuizOpen, setIsQuizOpen] = useState(false)
   const [quizInstance, setQuizInstance] = useState(0)
+  const [isTrailSupported, setIsTrailSupported] = useState(false)
+  const [isTrailEnabled, setIsTrailEnabled] = useState(false)
+  const [trailColorMode, setTrailColorMode] = useState<TrailColorMode>('blue')
 
   const applyTheme = (theme: ThemeName) => {
     setActiveTheme(theme)
@@ -130,6 +139,23 @@ function App() {
   const resetTheme = () => {
     setActiveTheme(null)
     localStorage.removeItem(THEME_STORAGE_KEY)
+  }
+
+  const handleTrailSupportChange = useCallback((nextIsSupported: boolean) => {
+    setIsTrailSupported(nextIsSupported)
+
+    if (!nextIsSupported) {
+      setIsTrailEnabled(false)
+    }
+  }, [])
+
+  const toggleTrail = () => {
+    setIsTrailEnabled((currentValue) => !currentValue)
+  }
+
+  const activateTrail = (colorMode: TrailColorMode) => {
+    setTrailColorMode(colorMode)
+    setIsTrailEnabled(true)
   }
 
   return (
@@ -151,6 +177,21 @@ function App() {
           >
             Resume
           </a>
+          {isTrailSupported && (
+            <button
+              aria-label={`${isTrailEnabled ? 'Disable' : 'Enable'} red cursor trail`}
+              aria-pressed={isTrailEnabled}
+              className="cursor-trail-nav-toggle"
+              onClick={toggleTrail}
+              type="button"
+            >
+              <span
+                className={`cursor-trail-toggle-dot cursor-trail-toggle-dot-${trailColorMode}`}
+                aria-hidden="true"
+              />
+              <span>Trail</span>
+            </button>
+          )}
         </div>
       </nav>
 
@@ -259,6 +300,20 @@ function App() {
               <div className="project-preview">
                 {project.image && project.imageAlt ? (
                   <img src={project.image} alt={project.imageAlt} />
+                ) : project.title === 'Personality Theme Quiz' ? (
+                  <div className="theme-preview-grid" aria-label="Theme previews">
+                    {themeNames.map((theme) => (
+                      <div
+                        className={`theme-preview-block theme-preview-${theme}`}
+                        key={theme}
+                      >
+                        <span aria-hidden="true"></span>
+                        <strong>{themeLabels[theme]}</strong>
+                      </div>
+                    ))}
+                  </div>
+                ) : project.title === 'Cursor Trail Art' ? (
+                  <CursorTrailPreview />
                 ) : (
                   <div className="project-placeholder" aria-hidden="true">
                     <span></span>
@@ -282,6 +337,29 @@ function App() {
                     <span key={item}>{item}</span>
                   ))}
                 </div>
+
+                {project.title === 'Cursor Trail Art' && isTrailSupported && (
+                  <div className="project-card-actions">
+                    {(['blue', 'white'] as TrailColorMode[]).map((colorMode) => {
+                      const isActive =
+                        isTrailEnabled && trailColorMode === colorMode
+
+                      return (
+                        <button
+                          aria-pressed={isActive}
+                          className={`project-action-button project-action-button-${colorMode}`}
+                          key={colorMode}
+                          onClick={() => activateTrail(colorMode)}
+                          type="button"
+                        >
+                          {isActive
+                            ? `${trailColorLabels[colorMode]} Active`
+                            : `Try ${trailColorLabels[colorMode]}`}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
 
                 {project.links && (
                   <div className="project-links">
@@ -432,6 +510,11 @@ function App() {
         key={quizInstance}
         onApplyTheme={applyTheme}
         onClose={() => setIsQuizOpen(false)}
+      />
+      <CursorTrail
+        colorMode={trailColorMode}
+        isEnabled={isTrailEnabled}
+        onSupportChange={handleTrailSupportChange}
       />
     </main>
   )
