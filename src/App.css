@@ -467,6 +467,142 @@ h2 {
   background: rgba(56, 189, 248, 0.14);
 }
 
+.portfolio-preview {
+  position: relative;
+  min-height: 220px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(34, 211, 238, 0.2), transparent 7rem),
+    radial-gradient(circle at 78% 16%, rgba(59, 130, 246, 0.13), transparent 9rem),
+    linear-gradient(rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(8, 47, 73, 0.9), rgba(15, 23, 42, 0.9) 48%, rgba(2, 6, 23, 0.94));
+  background-size: auto, auto, 22px 22px, 22px 22px, auto;
+  box-shadow:
+    inset 0 0 36px rgba(2, 6, 23, 0.34),
+    inset 0 0 30px rgba(34, 211, 238, 0.06);
+}
+
+.portfolio-preview::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(125, 211, 252, 0.18);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.portfolio-preview::after {
+  content: "";
+  position: absolute;
+  right: -46px;
+  bottom: -54px;
+  width: 158px;
+  height: 158px;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.06);
+  box-shadow:
+    0 0 42px rgba(56, 189, 248, 0.14),
+    inset 0 0 24px rgba(56, 189, 248, 0.05);
+}
+
+.portfolio-brand-mark {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(125, 211, 252, 0.52);
+  border-radius: 12px;
+  color: #67e8f9;
+  background:
+    radial-gradient(circle at 35% 24%, rgba(125, 211, 252, 0.42), transparent 2rem),
+    linear-gradient(135deg, rgba(14, 165, 233, 0.38), rgba(2, 6, 23, 0.76));
+  box-shadow:
+    0 0 26px rgba(56, 189, 248, 0.24),
+    inset 0 0 20px rgba(125, 211, 252, 0.12);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-shadow:
+    0 0 10px rgba(34, 211, 238, 0.55),
+    0 0 22px rgba(14, 165, 233, 0.3);
+}
+
+.portfolio-preview-identity {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 44px;
+  z-index: 1;
+}
+
+.portfolio-preview-identity span {
+  display: block;
+  margin-bottom: 7px;
+  color: #67e8f9;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.portfolio-preview-identity strong {
+  display: block;
+  max-width: 17rem;
+  color: #f8fafc;
+  font-size: 1.8rem;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(226, 232, 240, 0.12);
+}
+
+.portfolio-preview-identity p {
+  margin: 10px 0 0;
+  color: rgba(203, 213, 225, 0.82);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.portfolio-preview-signals {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1;
+  display: flex;
+  gap: 7px;
+  width: min(54%, 210px);
+}
+
+.portfolio-preview-signals span {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(125, 211, 252, 0.92), rgba(56, 189, 248, 0.16)),
+    rgba(15, 23, 42, 0.7);
+}
+
+.portfolio-preview-signals span:nth-child(2) {
+  flex: 0.72;
+  background:
+    linear-gradient(90deg, rgba(196, 181, 253, 0.72), rgba(56, 189, 248, 0.12)),
+    rgba(15, 23, 42, 0.7);
+}
+
+.portfolio-preview-signals span:nth-child(3) {
+  flex: 0.44;
+  background:
+    linear-gradient(90deg, rgba(74, 222, 128, 0.58), rgba(56, 189, 248, 0.1)),
+    rgba(15, 23, 42, 0.7);
+}
+
 .project-tech {
   display: flex;
   flex-wrap: wrap;

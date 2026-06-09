@@ -44,9 +44,32 @@ const technologies = [
 
 const projects: Project[] = [
   {
+    title: 'Developer Portfolio',
+    description:
+      'My primary web presence, built to reflect how I actually work. Dark UI, TypeScript throughout, interactive details, and a project showcase with real deployment links.',
+    tech: ['React', 'TypeScript', 'CSS', 'Vite'],
+    status: 'Featured',
+    links: [
+      {
+        label: 'Live Demo',
+        href: '#top',
+        icon: 'external',
+        ariaLabel: 'Open Developer Portfolio preview',
+        tooltip: 'Live Demo',
+      },
+      {
+        label: 'GitHub',
+        href: '#',
+        icon: 'github',
+        ariaLabel: 'View Developer Portfolio source repository',
+        tooltip: 'GitHub Repo',
+      },
+    ],
+  },
+  {
     title: '404 Arcade Game',
     description:
-      'A playful 404 page that turns a missing route into a small browser game with scoring, keyboard controls, and a live deploy.',
+      'A playful 404 page that turns a missing route into a small browser game, complete with scoring, lives, and keyboard controls.',
     tech: ['React', 'TypeScript', 'Game Logic'],
     status: 'Live',
     image: '/projects/404-arcade-game.png',
@@ -71,7 +94,7 @@ const projects: Project[] = [
   {
     title: 'Personality Theme Quiz',
     description:
-      'An interactive quiz that changes the site’s visual theme based on a visitor’s answers.',
+      'A short personality quiz that restyles the entire site to match the visitor\'s answers. Four themes, one design system, zero page reloads.',
     tech: ['React', 'State Management', 'CSS'],
     status: 'Interactive',
     links: [
@@ -87,7 +110,7 @@ const projects: Project[] = [
   {
     title: 'Cursor Trail Art',
     description:
-      'A subtle interactive visual effect where the cursor creates a glowing particle trail across the page.',
+      'An interactive canvas effect where your cursor paints a glowing particle trail. Try it right here on the card.',
     tech: ['JavaScript', 'Canvas', 'Animation'],
     status: 'Interactive',
   },
@@ -106,12 +129,12 @@ const experience = [
   {
     role: 'Application Developer',
     description:
-      'Front-end development, React/TypeScript, internal tools, GitLab workflows, and application maintenance.',
+      'I build and maintain internal front-end tools in React and TypeScript, working in GitLab from branch to deploy.',
   },
   {
-    role: 'Software Development / CS Background',
+    role: 'Graduate Student, Georgetown University',
     description:
-      'Computer Science foundation, systems programming in C, Python/C++, React projects, and graduate coursework.',
+      'M.S. in Computer Science, with coursework in systems programming and deep learning for computer vision.',
   },
 ]
 
@@ -154,6 +177,11 @@ function App() {
   }
 
   const activateTrail = (colorMode: TrailColorMode) => {
+    if (isTrailEnabled && trailColorMode === colorMode) {
+      setIsTrailEnabled(false)
+      return
+    }
+
     setTrailColorMode(colorMode)
     setIsTrailEnabled(true)
   }
@@ -202,13 +230,13 @@ function App() {
           </p>
 
           <h2>
-            Building useful software with clear design and practical purpose.
+            Building clear, practical software for real problems.
           </h2>
 
           <p className="hero-text">
             Hi, I&apos;m Efrem. I&apos;m an application developer focused on front-end
-            development, problem-solving, and building useful tools that make
-            information easier to manage.
+            work, problem-solving, and turning messy information into software
+            people actually want to use.
           </p>
 
         </div>
@@ -223,12 +251,12 @@ function App() {
 
             <pre>
 {`function Developer() {
-  const focus = 'build useful tools'
+  const focus = 'solve real problems'
 
   return (
     <Portfolio
       name="Efrem Wilkerson"
-      stack={['React', 'TypeScript']}
+      stack={['React', 'TypeScript', 'Python']}
       goal={focus}
     />
   )
@@ -244,20 +272,16 @@ function App() {
         <div className="about-grid">
           <div>
             <h2>
-              I like building software that feels useful, organized, and easy to
-              understand.
+              I like building software that feels organized, intentional, and
+              easy to understand.
             </h2>
 
             <p className="section-text">
-              I&apos;m an application developer focused on front-end development,
-              practical software systems, and turning ideas into clean, usable
-              applications. I&apos;m pursuing my Master&apos;s in Computer Science at
-              Georgetown University, where I&apos;m continuing to strengthen my
-              foundation in software development and problem-solving.
-            </p>
-
-            <p className="section-text">
-              A little more about my work:
+              I&apos;m an application developer focused on front-end development and
+              practical software systems. I&apos;m currently pursuing my Master&apos;s in
+              Computer Science at Georgetown University, where I&apos;m deepening my
+              foundation in systems programming and machine learning. A little
+              more about my work:
             </p>
           </div>
 
@@ -300,6 +324,27 @@ function App() {
               <div className="project-preview">
                 {project.image && project.imageAlt ? (
                   <img src={project.image} alt={project.imageAlt} />
+                ) : project.title === 'Developer Portfolio' ? (
+                  <div
+                    className="portfolio-preview"
+                    aria-label="Branded preview card for Efrem Wilkerson"
+                  >
+                    <div className="portfolio-brand-mark" aria-hidden="true">
+                      EW
+                    </div>
+
+                    <div className="portfolio-preview-identity">
+                      <span>Application Developer</span>
+                      <strong>Efrem Wilkerson</strong>
+                      <p>React &middot; TypeScript &middot; Python</p>
+                    </div>
+
+                    <div className="portfolio-preview-signals" aria-hidden="true">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
                 ) : project.title === 'Personality Theme Quiz' ? (
                   <div className="theme-preview-grid" aria-label="Theme previews">
                     {themeNames.map((theme) => (
