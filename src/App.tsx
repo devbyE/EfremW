@@ -60,7 +60,7 @@ const projects: Project[] = [
       },
       {
         label: 'GitHub',
-        href: '#',
+        href: 'https://github.com/devbyE/EfremW',
         icon: 'github',
         ariaLabel: 'View Developer Portfolio source repository',
         tooltip: 'GitHub Repo',
@@ -578,7 +578,7 @@ function App() {
             <div className="social-links">
               <a
                 className="social-icon-link"
-                href="https://www.linkedin.com/in/your-profile"
+                href="https://www.linkedin.com/in/efremw/"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
@@ -592,7 +592,7 @@ function App() {
               </a>
               <a
                 className="social-icon-link"
-                href="https://github.com/efremlwilkerson"
+                href="https://github.com/devbyE"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
