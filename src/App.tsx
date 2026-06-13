@@ -92,6 +92,13 @@ const projects: Project[] = [
     ],
   },
   {
+    title: 'Bug Replay Studio',
+    description:
+      'A developer tool that turns messy bug reports into structured, developer-ready tickets with reproduction steps, expected and actual behavior, severity, environment details, and a clear handoff summary.',
+    tech: ['React', 'TypeScript', 'Developer Tools', 'In Progress'],
+    status: 'In Progress',
+  },
+  {
     title: 'Personality Theme Quiz',
     description:
       'A short personality quiz that restyles the entire site to match the visitor\'s answers. Four themes, one design system, zero page reloads.',
@@ -132,9 +139,9 @@ const experience = [
       'I build and maintain internal front-end tools in React and TypeScript, working in GitLab from branch to deploy.',
   },
   {
-    role: 'Graduate Student, Georgetown University',
+    role: 'Cybersecurity Engineer',
     description:
-      'M.S. in Computer Science, with coursework in systems programming and deep learning for computer vision.',
+      'Worked across secure systems, vulnerability awareness, compliance-minded workflows, and mission-focused technical support, helping keep systems safer, sharper, and harder to break.',
   },
 ]
 
@@ -202,6 +209,7 @@ function App() {
             href="/Efrem-Wilkerson-Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
+            title="Resume"
           >
             Resume
           </a>
@@ -357,6 +365,44 @@ function App() {
                       </div>
                     ))}
                   </div>
+                ) : project.title === 'Bug Replay Studio' ? (
+                  <div
+                    className="bug-replay-preview"
+                    aria-label="Bug Replay Studio ticket builder preview"
+                  >
+                    <div className="bug-replay-window">
+                      <div className="bug-replay-window-top">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+
+                      <div className="bug-replay-panel">
+                        <span className="bug-replay-label">Bug Report</span>
+                        <p>Checkout fails after coupon apply</p>
+                        <div className="bug-replay-lines" aria-hidden="true">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                      </div>
+
+                      <div className="bug-replay-flow" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+
+                      <div className="bug-replay-panel bug-replay-panel-accent">
+                        <span className="bug-replay-label">Ready Ticket</span>
+                        <div className="bug-replay-checklist" aria-hidden="true">
+                          <span>Steps</span>
+                          <span>Severity</span>
+                          <span>Environment</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : project.title === 'Cursor Trail Art' ? (
                   <CursorTrailPreview />
                 ) : (
@@ -497,18 +543,7 @@ function App() {
         </div>
 
         <div className="contact-grid">
-          <article className="contact-card">
-            <svg className="contact-card-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16v12H4V6z" />
-              <path d="M4 7l8 6 8-6" />
-            </svg>
-            <span>Email</span>
-            <a href="mailto:efremwilkerson@gmail.com">
-              efremwilkerson@gmail.com
-            </a>
-          </article>
-
-          <article className="contact-card">
+          <article className="contact-card contact-social-card">
             <svg className="contact-card-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
               <path d="M16 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
@@ -523,6 +558,7 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
+                title="LinkedIn"
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M6.8 9.3v9.5H3.7V9.3h3.1z" />
@@ -536,9 +572,21 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
+                title="GitHub"
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 3.5a8.6 8.6 0 0 0-2.7 16.8c.4.1.6-.2.6-.4v-1.5c-2.3.5-2.8-1-2.8-1-.4-.9-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.8.1 1.3.9 1.3.9.8 1.3 2 1 2.4.8.1-.6.3-1 .5-1.2-1.8-.2-3.8-.9-3.8-4.1 0-.9.3-1.7.9-2.3-.1-.2-.4-1.1.1-2.3 0 0 .7-.2 2.4.9.7-.2 1.4-.3 2.1-.3.7 0 1.4.1 2.1.3 1.6-1.1 2.4-.9 2.4-.9.5 1.2.2 2.1.1 2.3.5.6.9 1.4.9 2.3 0 3.2-1.9 3.9-3.8 4.1.3.3.6.8.6 1.6v2.4c0 .2.1.5.6.4A8.6 8.6 0 0 0 12 3.5z" />
+                </svg>
+              </a>
+              <a
+                className="social-icon-link social-icon-link-email"
+                href="mailto:efremwilkerson@gmail.com"
+                aria-label="Email"
+                title="Email"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 6h16v12H4V6z" />
+                  <path d="M4 7l8 6 8-6" />
                 </svg>
               </a>
             </div>
