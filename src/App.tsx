@@ -39,7 +39,8 @@ const technologies = [
   'Git / GitLab',
   'HTML',
   'CSS',
-  'Vite',
+  'AWS',
+  'Node.js',
 ]
 
 const projects: Project[] = [
@@ -94,8 +95,8 @@ const projects: Project[] = [
   {
     title: 'Bug Replay Studio',
     description:
-      'A developer tool that turns messy bug reports into structured, developer-ready tickets with reproduction steps, expected and actual behavior, severity, environment details, and a clear handoff summary.',
-    tech: ['React', 'TypeScript', 'Developer Tools', 'In Progress'],
+      'Turns messy bug reports into structured, developer-ready tickets — complete with reproduction steps, severity, and environment details.',
+    tech: ['React', 'TypeScript', 'REST API'],
     status: 'In Progress',
   },
   {
@@ -117,7 +118,7 @@ const projects: Project[] = [
   {
     title: 'Cursor Trail Art',
     description:
-      'An interactive canvas effect where your cursor paints a glowing particle trail. Try it right here on the card.',
+      'An interactive canvas effect where your cursor paints a glowing particle trail.',
     tech: ['JavaScript', 'Canvas', 'Animation'],
     status: 'Interactive',
   },
@@ -135,11 +136,13 @@ const isThemeName = (value: string | null): value is ThemeName =>
 const experience = [
   {
     role: 'Application Developer',
+    dateRange: 'Jan 2025 - Present',
     description:
       'I build and maintain internal front-end tools in React and TypeScript, working in GitLab from branch to deploy.',
   },
   {
     role: 'Cybersecurity Engineer',
+    dateRange: 'May 2022 - Jan 2025',
     description:
       'Worked across secure systems, vulnerability awareness, compliance-minded workflows, and mission-focused technical support, helping keep systems safer, sharper, and harder to break.',
   },
@@ -242,11 +245,14 @@ function App() {
           </h2>
 
           <p className="hero-text">
-            Hi, I&apos;m Efrem. I&apos;m an application developer focused on front-end
-            work, problem-solving, and turning messy information into software
-            people actually want to use.
+            I build software that is fast, structured, and easy to hand off.
           </p>
 
+          <div className="hero-actions">
+            <a className="secondary-link" href="#projects">
+              View My Work
+            </a>
+          </div>
         </div>
 
         <div className="hero-visual" aria-hidden="true">
@@ -288,8 +294,7 @@ function App() {
               I&apos;m an application developer focused on front-end development and
               practical software systems. I&apos;m currently pursuing my Master&apos;s in
               Computer Science at Georgetown University, where I&apos;m deepening my
-              foundation in systems programming and machine learning. A little
-              more about my work:
+              foundation in systems programming and machine learning.
             </p>
           </div>
 
@@ -304,14 +309,13 @@ function App() {
       <section id="experience" className="section">
         <p className="section-label">/ experience</p>
 
-        <div className="section-heading-row">
-          <h2>Experience</h2>
-        </div>
-
         <div className="experience-grid">
           {experience.map((item) => (
             <article className="experience-item" key={item.role}>
-              <h3>{item.role}</h3>
+              <div>
+                <h3>{item.role}</h3>
+                <span className="experience-date">{item.dateRange}</span>
+              </div>
               <p>{item.description}</p>
             </article>
           ))}
@@ -429,6 +433,18 @@ function App() {
                   ))}
                 </div>
 
+                {project.title === 'Bug Replay Studio' && (
+                  <div className="project-card-actions">
+                    <button
+                      className="project-action-button project-action-button-disabled"
+                      disabled
+                      type="button"
+                    >
+                      Coming Soon
+                    </button>
+                  </div>
+                )}
+
                 {project.title === 'Cursor Trail Art' && isTrailSupported && (
                   <div className="project-card-actions">
                     {(['blue', 'white'] as TrailColorMode[]).map((colorMode) => {
@@ -524,6 +540,10 @@ function App() {
             </article>
           ))}
         </div>
+
+        <p className="projects-transition">
+          That&apos;s the work. Let&apos;s talk about what&apos;s next.
+        </p>
       </section>
 
       <footer id="contact" className="contact-footer">
@@ -541,6 +561,10 @@ function App() {
             Reach out by email or find me on LinkedIn and GitHub.
           </p>
         </div>
+
+        <p className="contact-presence">
+          Open to new opportunities and interesting problems.
+        </p>
 
         <div className="contact-grid">
           <article className="contact-card contact-social-card">

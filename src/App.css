@@ -117,7 +117,7 @@ h1 {
 .hero h2 {
   max-width: 690px;
   margin-bottom: 22px;
-  font-size: clamp(2.15rem, 4.2vw, 3.75rem);
+  font-size: clamp(1.9rem, 3.5vw, 3.2rem);
   line-height: 1.05;
 }
 
@@ -330,9 +330,16 @@ h2 {
 }
 
 .experience-item h3 {
-  margin-bottom: 0;
+  margin-bottom: 6px;
   color: #f8fafc;
   font-size: 1.2rem;
+}
+
+.experience-date {
+  display: block;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .experience-item p {
@@ -347,7 +354,19 @@ h2 {
 
 .project-grid {
   display: grid;
+  grid-auto-rows: 1fr;
+  align-items: stretch;
   gap: 22px;
+}
+
+.projects-transition {
+  max-width: 520px;
+  margin: 32px auto 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.7;
+  text-align: center;
 }
 
 .project-card {
@@ -355,6 +374,7 @@ h2 {
   grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
   gap: 28px;
   align-items: center;
+  height: 100%;
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 18px;
   padding: 20px;
@@ -879,6 +899,13 @@ h2 {
   line-height: 1.7;
 }
 
+.contact-presence {
+  max-width: 520px;
+  margin: -8px auto 22px;
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 360px);
@@ -1217,6 +1244,13 @@ h2 {
     rgba(12, 74, 110, 0.42);
 }
 
+.project-action-button-disabled,
+.project-action-button-disabled:hover {
+  opacity: 0.58;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .project-action-button-white {
   border-color: rgba(226, 232, 240, 0.28);
   color: #e2e8f0;
@@ -1387,7 +1421,10 @@ h2 {
 .page[data-theme] .section-text,
 .page[data-theme] .section-heading-row p,
 .page[data-theme] .experience-item p,
+.page[data-theme] .experience-date,
 .page[data-theme] .project-card p,
+.page[data-theme] .projects-transition,
+.page[data-theme] .contact-presence,
 .page[data-theme] .contact-heading p {
   color: var(--text-muted);
 }
